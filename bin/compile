@@ -16,6 +16,12 @@ if [ ! -d "$BUILD_DIR/$APP_ROOT" ]; then
   exit 1
 fi
 
+# Remove unnecessary directory / directories
+if [ -d "$REMOVE_DIR" ]; then
+  echo "Removing unnecessary directories"
+  rm -rf "$BUILD_DIR/$REMOVE_DIR"
+fi
+
 # Pull in the selected app to the root directory
 rsync -r "$BUILD_DIR/$APP_ROOT/" $BUILD_DIR/ --exclude "node_modules"
 
