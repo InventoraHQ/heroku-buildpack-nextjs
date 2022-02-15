@@ -17,8 +17,8 @@ if [ ! -d "$BUILD_DIR/$APP_ROOT" ]; then
 fi
 
 # Remove unnecessary directory / directories
-if [ -d "$REMOVE_DIR" ]; then
-  echo "Removing unnecessary directories"
+if [ ! -d "$REMOVE_DIR" ]; then
+  echo "Removing unnecessary directories: ${REMOVE_DIR}"
   rm -rf "$BUILD_DIR/$REMOVE_DIR"
 fi
 
