@@ -20,6 +20,7 @@ fi
 if [ -d "$REMOVE_DIR" ]; then
   echo "Removing unnecessary directories"
   rm -rf "$BUILD_DIR/$REMOVE_DIR"
+  yarn install --production --ignore-scripts --prefer-offline
 fi
 
 # Pull in the selected app to the root directory
