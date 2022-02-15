@@ -20,8 +20,11 @@ fi
 if [ -d "$REMOVE_DIR" ]; then
   echo "Removing unnecessary directories"
   rm -rf "$BUILD_DIR/$REMOVE_DIR"
-  yarn install --production --ignore-scripts --prefer-offline
 fi
+
+# Removing dev depenednecies & any dependencies from $REMOVE_DIR
+echo "Removing dev dependencies & dependencies from other workspaces"
+yarn install --production --ignore-scripts --prefer-offline
 
 # Pull in the selected app to the root directory
 rsync -r "$BUILD_DIR/$APP_ROOT/" $BUILD_DIR/ --exclude "node_modules"
