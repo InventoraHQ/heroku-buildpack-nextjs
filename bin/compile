@@ -19,7 +19,10 @@ fi
 # Remove unnecessary directory / directories
 if [ ! -d "$REMOVE_DIR" ]; then
   echo "Removing unnecessary directories: ${REMOVE_DIR}"
-  rm -rf "$BUILD_DIR/$REMOVE_DIR"
+  back=`pwd`
+  cd $BUILD_DIR
+  rm -rf $REMOVE_DIR
+  cd $back
 fi
 
 # Removing dev depenednecies & any dependencies from $REMOVE_DIR
