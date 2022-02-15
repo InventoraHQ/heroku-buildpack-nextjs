@@ -11,6 +11,11 @@ fi
 
 APP_ROOT="$(cat "$ENV_DIR/APP_ROOT")"
 
+if [ -f "$ENV_DIR/REMOVE_DIR" ]; then
+  echo "REMOVE_DIR set to $REMOVE_DIR."
+  REMOVE_DIR=$(cat "$ENV_DIR/REMOVE_DIR")
+fi
+
 if [ ! -d "$BUILD_DIR/$APP_ROOT" ]; then
   echo "No project found at $APP_ROOT. Aborting."
   exit 1
