@@ -4,25 +4,14 @@ BUILD_DIR=$1
 CACHE_DIR=$2
 ENV_DIR=$3
 
-if [ ! -f "$ENV_DIR/APP_ROOT" ]; then
-  echo "APP_ROOT not set. Aborting."
-  exit 1
+if [ ! -f "$ENV_DIR/REMOVE_DIR" ]; then
+  echo "REMOVE_DIR not set. Skipping remove step."
+  exit 0
 fi
 
-APP_ROOT="$(cat "$ENV_DIR/APP_ROOT")"
+REMOVE_DIR=$(cat "$ENV_DIR/REMOVE_DIR")
 
-if [ -f "$ENV_DIR/REMOVE_DIR" ]; then
-  echo "REMOVE_DIR set to $REMOVE_DIR."
-  REMOVE_DIR=$(cat "$ENV_DIR/REMOVE_DIR")
-fi
-
-if [ ! -d "$BUILD_DIR/$APP_ROOT" ]; then
-  echo "No project found at $APP_ROOT. Aborting."
-  exit 1
-fi
-
-echo "=================================== $REMOVE_DIR ===================================="
-# Remove unnecessary directory / directories
+# Remove unnecessary directory or directories
 if [ ! -z "$REMOVE_DIR" ]; then
   echo "Removing unnecessary directories: ${REMOVE_DIR}"
   back=`pwd`
@@ -30,14 +19,3 @@ if [ ! -z "$REMOVE_DIR" ]; then
   rm -rf $REMOVE_DIR
   cd $back
 fi
-
-# Removing dev depenednecies & any dependencies from $REMOVE_DIR
-echo "Removing dev dependencies & dependencies from other workspaces"
-yarn install --production --ignore-scripts --prefer-offline
-
-# Pull in the selected app to the root directory
-rsync -r "$BUILD_DIR/$APP_ROOT/" $BUILD_DIR/ --exclude "node_modules"
-
-# Delete the original sub-directory and node_modules symlink
-rm "$BUILD_DIR/node_modules/$APP_ROOT"
-rm -rf "$BUILD_DIR/$APP_ROOT"
