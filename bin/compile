@@ -4,6 +4,8 @@ BUILD_DIR=$1
 CACHE_DIR=$2
 ENV_DIR=$3
 
+echo "==========> MONOREPO CLEANER STARTING"
+
 if [ ! -f "$ENV_DIR/REMOVE_DIR" ]; then
   echo "REMOVE_DIR not set. Skipping remove step."
   exit 0
@@ -13,9 +15,11 @@ REMOVE_DIR=$(cat "$ENV_DIR/REMOVE_DIR")
 
 # Remove unnecessary directory or directories
 if [ ! -z "$REMOVE_DIR" ]; then
-  echo "Removing unnecessary directories: ${REMOVE_DIR}"
+  echo "Removing: ${REMOVE_DIR}"
   back=`pwd`
   cd $BUILD_DIR
   rm -rf $REMOVE_DIR
   cd $back
+else
+  echo "Nothing to remove. Continuing"
 fi
