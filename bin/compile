@@ -1,4 +1,6 @@
 #!/bin/sh
+set -e
+set -x
 
 BUILD_DIR=$1
 CACHE_DIR=$2
@@ -14,9 +16,8 @@ fi
 APP_ROOT=$(cat "$ENV_DIR/APP_ROOT")
 
 # Run nextjs build
-
+ls -al $BUILD_DIR
 cd "$BUILD_DIR/$APP_ROOT"
 pwd
-ls -al
 yarn build
 
