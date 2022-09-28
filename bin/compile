@@ -6,18 +6,15 @@ BUILD_DIR=$1
 CACHE_DIR=$2
 ENV_DIR=$3
 
-echo "==========> MONOREPO CLEANER STARTING"
+echo "==========> Run nextjs build"
 
-if [ ! -f "$ENV_DIR/APP_ROOT" ]; then
-  echo "APP_ROOT not set. Skipping remove step."
-  exit 0
-fi
+# if [ ! -f "$ENV_DIR/APP_ROOT" ]; then
+#   echo "APP_ROOT not set. Skipping remove step."
+#   exit 0
+# fi
 
-APP_ROOT=$(cat "$ENV_DIR/APP_ROOT")
+# APP_ROOT=$(cat "$ENV_DIR/APP_ROOT")
 
 # Run nextjs build
-ls -al $BUILD_DIR
-cd "$BUILD_DIR/$APP_ROOT"
-pwd
 yarn build
 
