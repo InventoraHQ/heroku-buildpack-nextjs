@@ -16,5 +16,7 @@ echo "==========> Run nextjs build"
 # APP_ROOT=$(cat "$ENV_DIR/APP_ROOT")
 
 # Run nextjs build
+pwd 
+ls -al
 yarn build
 
